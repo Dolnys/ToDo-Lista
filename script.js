@@ -20,16 +20,38 @@ const prepareDOMEvents = () => {
   addBtn.addEventListener('click', addNewTodo);
 };
 
-const addNewTodo = (params) => {
+const addNewTodo = () => {
   if (todoInput.value !== '') {
-    newTodo = document.createElement('li');
+    const newTodo = document.createElement('li');
     newTodo.textContent = todoInput.value;
+    createToolsArea(newTodo);
+
     ulList.append(newTodo);
     todoInput.value = '';
     errorInfo.textContent = '';
   } else {
     errorInfo.textContent = 'Please enter the task content';
   }
+};
+
+const createToolsArea = (newTodo) => {
+  const toolsPanel = document.createElement('div');
+  toolsPanel.classList.add('tools');
+  newTodo.append(toolsPanel);
+
+  const completeBtn = document.createElement('button');
+  completeBtn.classList.add('complete');
+  completeBtn.innerHTML = '<i class="fas fa-check"></i>';
+
+  const editBtn = document.createElement('button');
+  editBtn.classList.add('edit');
+  editBtn.textContent = 'EDIT';
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.classList.add('delete');
+  deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+
+  toolsPanel.append(completeBtn, editBtn, deleteBtn);
 };
 
 document.addEventListener('DOMContentLoaded', main);
